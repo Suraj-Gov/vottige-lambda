@@ -29,7 +29,7 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           },
         })
         .promise();
-      break;
+      return formatJSONResponse({ statusCode: 200 });
 
     case "$disconnect":
       await db
@@ -42,8 +42,13 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 
     case "$default":
       const connections = await getAllConnections();
-      console.log({ body });
-      await Promise.all(connections.map((id) => sendMessage(id, body)));
+      const senderConnectionIdIdx = connections.indexOf(connectionId);
+      const emitToIds = (() => {
+        const temp = [...connections];
+        temp.splice(senderConnectionIdIdx, 1);
+        return temp;
+      })();
+      await Promise.allSettled(emitToIds.map((id) => sendMessage(id, body)));
       break;
   }
 

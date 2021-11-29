@@ -24,6 +24,13 @@ export const sendMessage = async (connectionId: string, body: string) => {
       })
       .promise();
   } catch (err) {
+    if (err.message === "410") {
+      // stale connection, remove from db
+      await db
+        .delete({ TableName: __connsTable, Key: { connectionId } })
+        .promise();
+      return;
+    }
     console.error("ERROR");
     console.error(err.message);
   }
