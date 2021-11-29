@@ -3,11 +3,13 @@
 This is a `serverless` project.
 Bootstrapped with `sls create --template aws-nodejs-typescript --path <project_name>`
 
-### To invoke a function locally
+## Invoke a function locally: `sls invoke local -f <function_name>`
 
-```
-sls invoke local -f <function_name>
-```
+## Deploy: `sls deploy`
+
+## List deployed functions: `sls deploy list functions`
+
+## View logs of a function: `sls logs -f <function_name>`
 
 ### Additional packages installed
 
@@ -24,6 +26,16 @@ npm i -D serverless-dynamodb-local
 ```
 
 - [serverless-dynamodb-local](https://www.npmjs.com/package/serverless-dynamodb-local) (Need to have Java JRE installed, if on M1, run in Rosetta)
+
+### Generate policies with `yeoman`
+
+```
+npm i -g yo generator-serverless-policy
+yo serverless-policy
+```
+
+A policy.json is generated. It contains the AWS user ID and it is generated based on the answers.
+To better use the existing policy.json file, replace the ID with your AWS user ID. (Mine's 094554565690)
 
 # Serverless - AWS Node.js Typescript
 

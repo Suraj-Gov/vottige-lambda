@@ -1,4 +1,5 @@
 import type { AWS } from "@serverless/typescript";
+import policy from "./policy/v1.json";
 
 import dynamodbTables from "@resources/dynamodb-tables";
 import { hello, wsHandler } from "@functions/index";
@@ -64,6 +65,7 @@ const serverlessConfiguration: AWS = {
     runtime: "nodejs14.x",
     stage: "dev",
     region: "ap-south-1",
+    iamRoleStatements: policy.Statement,
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -73,7 +75,7 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
       REGION: "${self:custom.region}",
       STAGE: "${self:custom.stage}",
-      APIG_ENDPOINT: "http://localhost:3001",
+      APIG_ENDPOINT: "${opt:apig_endpoint}",
       CONNECTIONS_TABLE: "${self:custom.connections_table}",
     },
     lambdaHashingVersion: "20201221",

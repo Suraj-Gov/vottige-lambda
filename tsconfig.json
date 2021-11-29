@@ -7,11 +7,11 @@
     "noUnusedParameters": true,
     "removeComments": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "target": "ES2020",
     "outDir": "lib",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
   "include": ["src/**/*.ts", "serverless.ts"],
   "exclude": [
