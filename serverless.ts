@@ -75,7 +75,6 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
       REGION: "${self:custom.region}",
       STAGE: "${self:custom.stage}",
-      APIG_ENDPOINT: "${opt:apig_endpoint}",
       CONNECTIONS_TABLE: "${self:custom.connections_table}",
     },
     lambdaHashingVersion: "20201221",

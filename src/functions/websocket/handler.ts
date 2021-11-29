@@ -14,9 +14,10 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   const {
     body,
-    requestContext: { connectionId, routeKey },
+    requestContext: { connectionId, routeKey, domainName, stage },
   } = event;
   console.log({ body, connectionId, routeKey });
+  const apiGEndpoint = domainName + "/" + stage;
 
   switch (routeKey) {
     case "$connect":
@@ -48,7 +49,11 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         temp.splice(senderConnectionIdIdx, 1);
         return temp;
       })();
-      await Promise.allSettled(emitToIds.map((id) => sendMessage(id, body)));
+      await Promise.allSettled(
+        emitToIds.map((connectionId) =>
+          sendMessage({ body, connectionId }, apiGEndpoint)
+        )
+      );
       break;
   }
 

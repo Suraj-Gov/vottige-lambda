@@ -1,21 +1,23 @@
 import * as AWS from "aws-sdk";
-import {
-  __apig_endpoint,
-  __connsTable,
-  __db_l_stage,
-  __isProd,
-  __stage,
-} from "src/constants";
+import { __connsTable, __db_l_stage, __isProd, __stage } from "src/constants";
 // import { localConfig } from "src/constants";
 
 // AWS.config.update(localConfig);
 const db = new AWS.DynamoDB.DocumentClient();
 
-export const sendMessage = async (connectionId: string, body: string) => {
+interface sendMessageParamsI {
+  connectionId: string;
+  body: string;
+}
+
+export const sendMessage = async (
+  { connectionId, body }: sendMessageParamsI,
+  endpoint: string
+) => {
   try {
     const apig = new AWS.ApiGatewayManagementApi({
       apiVersion: "2018-11-29",
-      endpoint: __apig_endpoint,
+      endpoint,
     });
     await apig
       .postToConnection({
