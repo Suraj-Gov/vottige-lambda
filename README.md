@@ -1,11 +1,29 @@
 # Vottige - Lambda
+
 This is a `serverless` project.
 Bootstrapped with `sls create --template aws-nodejs-typescript --path <project_name>`
 
 ### To invoke a function locally
+
 ```
 sls invoke local -f <function_name>
 ```
+
+### Additional packages installed
+
+```
+npm i -D serverless-offline serverless-dotenv-plugin serverless-bundle
+```
+
+- [serverless-offline](https://www.npmjs.com/package/serverless-offline)
+- [serverless-dotenv-plugin](https://www.npmjs.com/package/serverless-dotenv-plugin)
+- [serverless-bundle](https://www.npmjs.com/package/serverless-bundle) (I don't think we need this... but let's see)
+
+```
+npm i -D serverless-dynamodb-local
+```
+
+- [serverless-dynamodb-local](https://www.npmjs.com/package/serverless-dynamodb-local) (Need to have Java JRE installed, if on M1, run in Rosetta)
 
 # Serverless - AWS Node.js Typescript
 

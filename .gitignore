@@ -1,2 +1,4 @@
 .esbuild
 node_modules
+.env
+.dynamodb
