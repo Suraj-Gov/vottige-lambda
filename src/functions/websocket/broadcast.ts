@@ -17,10 +17,12 @@ export const sendMessage = async (connectionId: string, body: string) => {
       apiVersion: "2018-11-29",
       endpoint: __apig_endpoint,
     });
-    await apig.postToConnection({
-      ConnectionId: connectionId,
-      Data: JSON.stringify(body),
-    });
+    await apig
+      .postToConnection({
+        ConnectionId: connectionId,
+        Data: JSON.stringify(body),
+      })
+      .promise();
   } catch (err) {
     console.error("ERROR");
     console.error(err.message);

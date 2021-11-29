@@ -42,8 +42,8 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 
     case "$default":
       const connections = await getAllConnections();
-      console.log({ connections });
-      await Promise.all(connections.map((id) => sendMessage(id, body.message)));
+      console.log({ body });
+      await Promise.all(connections.map((id) => sendMessage(id, body)));
       break;
   }
 
